@@ -18,7 +18,7 @@ class Kernel {
 		var name = NSStringFromClass(Binding<T>)
 		println(name)
 		
-		//if a class get's rebound, it will blow it away.
+		//rebind if exists
 		if(_internal[name] != nil)
 		{
 			_internal[name] = nil
