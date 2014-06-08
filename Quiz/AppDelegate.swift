@@ -12,6 +12,29 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
 	var window: UIWindow?
+	
+	init() {
+		super.init()
+		registerServices()
+	}
+	
+	/*
+	
+	*/
+	func registerServices(){
+		var data = [PBQuestionAnswer(
+			question: "What is your name?",
+			answer: "Paul"),
+			PBQuestionAnswer(
+			question: "What is the average velocity of an unladen swallow?",
+			answer: "What do you mean, an African or European swallow?") ]
+		var provider = PBQuestionAnswerProvider(pentities: data)
+		(Container.instance.kernel.bind() as Binding<PBQuestionAnswerProvider>)
+			.to({
+				()->PBQuestionAnswerProvider in
+				return provider
+			})
+	}
 
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
@@ -19,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		self.window!.backgroundColor = UIColor.whiteColor()
 		self.window!.makeKeyAndVisible()
+		var quizctrlr = PBQuizViewController(nibName: nil, bundle: nil)
+		self.window!.rootViewController = quizctrlr
 		return true
 	}
 
@@ -43,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-
 
 }
 
